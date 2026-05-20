@@ -1,7 +1,11 @@
 <p align="left">
     <span>
-        <b>中文</b>
+        <b>简体中文</b>
     </span>
+    <span> • </span>
+    <a href="README_tw.md">
+        繁體中文
+    </a>
     <span> • </span>
     <a href="README_en.md">
         English
@@ -11,6 +15,7 @@
         日本語
     </a>
 </p>
+
 
 <p align="center">
   <a href="https://github.com/hiroi-sora/Umi-OCR">

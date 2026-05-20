@@ -1,6 +1,10 @@
 <p align="left">
     <a href="README.md">
-        中文
+        简体中文
+    </a>
+    <span> • </span>
+    <a href="README_tw.md">
+        繁體中文
     </a>
     <span> • </span>
     <a href="README_en.md">
