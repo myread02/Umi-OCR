@@ -296,6 +296,25 @@ Umi-OCR
 
 - [PyStand](https://github.com/skywind3000/PyStand) 客製版
 
+## 運作原理與架構
+
+Umi-OCR 是一款基於 **Python + Qt (PySide2/QML) + 獨立離線 OCR 引擎** 打造的跨平台桌面軟體。其底層運作原理與架構特色如下：
+
+### 1. 前端 UI 與控制層 (Python + PySide2 + QML)
+* **QML 介面**：採用 Qt Quick/QML 技術繪製，確保極高的流暢度、流暢的微動畫以及現代化的主題切換機制。
+* **PySide2 連接器**：Python 負責底層業務邏輯控制，並透過 `qmlRegisterType` 將各種 Connector（連線器，如 `MissionConnector`、`PluginsConnector`）註冊為 QML 元件，實現 QML 介面與 Python 後台的雙向高效通信。
+
+### 2. 獨立進程 OCR 引擎 (Subprocess + JSON IPC)
+* **核心痛點解決**：在 Python 中直接載入 PaddleOCR 等大型 C++ 深度學習庫，常會因為記憶體洩漏、多執行緒鎖定 (GIL) 或系統相容性問題導致主程式崩潰。
+* **為了解決此痛點，Umi-OCR 採用「進程隔離」設計**：
+  - 當軟體啟動或使用者發起 OCR 任務時，Python 會以 **子進程 (Subprocess)** 方式拉起獨立的離線 OCR 引擎（如 `PaddleOCR-json` 或 `RapidOCR-json`）。
+  - Python 與 OCR 引擎之間透過標準輸入輸出流 (stdin/stdout) 管道，進行 **JSON 格式的處理請求與辨識結果交換 (IPC)**。
+  - 這極大優化了記憶體回收機制，就算 OCR 引擎子進程異常崩潰，也完全不影響主程式運作。
+
+### 3. 可攜式執行環境封裝
+* **Windows (PyStand)**：採用客製化的 PyStand C++ 啟動器封裝嵌入式 Python 解譯器，無須在使用者電腦上安裝 Python 環境，解壓即可雙擊執行。
+* **Linux**：透過 `umi-ocr.sh` 啟動，使用獨立的 Linux 執行庫與環境依賴包完成無痛部署。
+
 ## 建構專案
 
 請跳轉至下列倉庫或參考說明，完成對應平台的開發/執行環境部署。
