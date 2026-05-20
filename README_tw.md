@@ -287,10 +287,12 @@ Umi-OCR
       └─ 翻譯檔案
 ```
 
-支援的離線 OCR 引擎：
+支援的離線 OCR 引擎與模型：
 
-- [PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json)
-- [RapidOCR-json](https://github.com/hiroi-sora/RapidOCR-json)
+* **PaddleOCR-json**：
+  基於百度開源的 **PaddleOCR** 深度學習框架，預設內建百度官方性能強大的 **PP-OCRv3** / **PP-OCRv4** 輕量化模型（包含文字檢測 DBNet 與文字辨識 SVTR 等模型）。特別適合高精度的中文、英文及多國語言線下辨識。
+* **RapidOCR-json**：
+  基於 **RapidOCR**，將 PP-OCRv3/v4 模型轉換為 **ONNX** 格式運行。特點是啟動極快、記憶體佔用極低，且對 CPU 運算進行了高度優化，非常適合資源有限的裝置或可攜式封裝。
 
 執行環境框架：
 
